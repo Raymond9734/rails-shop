@@ -108,3 +108,145 @@
 
 }
 
+.form-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+  color: #4a4a4a;
+}
+
+.input, .textarea, .select select {
+  border-radius: 20px;
+  border: 1px solid #dbdbdb;
+  transition: all 0.3s ease;
+}
+
+.input:focus, .textarea:focus, .select select:focus {
+  border-color: #3273dc;
+  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+}
+
+
+.button.is-warning {
+  background-color: #ffdd57;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.button.is-warning:hover {
+  background-color: #ffd83d;
+}
+
+.button.is-light {
+  background-color: #f5f5f5;
+  color: #363636;
+}
+
+.button.is-light:hover {
+  background-color: #e8e8e8;
+}
+
+
+
+.file-upload-box {
+  background-color: #f8f9fa;
+  border: 2px dashed #3273dc;
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #276cda;
+    background-color: #f0f4f8;
+  }
+}
+
+.drag-drop-area {
+  cursor: pointer;
+  position: relative;
+
+  .drag-drop-icon {
+    font-size: 4rem; /* Larger icon */
+    color: #3273dc;
+    margin-bottom: 1rem;
+    display: block; /* Ensure the icon is on its own line */
+  }
+
+  .drag-drop-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #4a4a4a;
+    margin-bottom: 0.5rem;
+  }
+
+  .drag-drop-subtext {
+    font-size: 0.9rem;
+    color: #7a7a7a;
+    margin-bottom: 1rem;
+  }
+
+  .file-input {
+    opacity: 0; /* Hide the file input */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .file-name {
+    display: block;
+    margin: auto;
+    margin-top: 1rem;
+    color: #4a4a4a;
+    text-align: center; 
+    border: none;
+    padding: 0; 
+    background: none;
+    box-shadow: none; 
+  }
+
+  .image-preview {
+    margin-top: 1rem;
+    display: none; /* Hidden by default */
+    position: relative; /* Required for absolute positioning of the close icon */
+  
+    img {
+      max-width: 100%;
+      max-height: 200px; /* Adjust as needed */
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    .close-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      color: #333;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: rgba(255, 0, 0, 0.8);
+        color: white;
+      }
+    }
+  }
+}
+
+.highlight {
+  border-color: #276cda !important;
+  background-color: #f0f4f8 !important;
+}
