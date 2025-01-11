@@ -1,0 +1,39 @@
+.section {
+    .column.is-4 {
+      margin-top: 2rem;
+      border: 1px solid #ffdd57; // Changed border color to yellow
+      border-radius: 8px; // Added border radius for modern look
+      padding: 2rem; // Increased padding for better spacing
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Added box shadow for modern look
+    }
+  
+    .title.is-2 {
+      margin-bottom: 2rem;
+      color: #333;
+      font-weight: 600; // Added font weight for modern look
+    }
+  
+    .field {
+      margin-bottom: 1.5rem;
+  
+      .label {
+        color: #363636;
+        font-size: 1rem; // Adjusted font size for modern look
+      }
+  
+      .input {
+        border-radius: 4px; // Added border radius for modern look
+        &:focus {
+          border-color: #ffdd57;
+          box-shadow: 0 0 0 0.2rem rgba(255, 221, 87, 0.25); // Added box shadow on focus for modern look
+        }
+      }
+  
+      .button.is-warning {
+        border-radius: 4px; // Added border radius for modern look
+        &:hover {
+          background-color: darken(#ffdd57, 5%);
+        }
+      }
+    }
+  }

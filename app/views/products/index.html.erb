@@ -1,44 +1,53 @@
 <% content_for :header do %>
-<section class="hero is-warning">
-  <div class="hero-body">
+<section class="hero is-warning is-small">
+  <div class="hero-body is-rounded" >
     <div class="container">
-      <h1 class="title">
-        Browse new products
+      <h1 class="title is-2 has-text-weight-bold has-text-centered">
+        Discover Amazing Products
       </h1>
+      <p class="subtitle is-5 has-text-centered">
+        Find exactly what you're looking for
+      </p>
     </div>
   </div>
 </section>
 <% end %>
 
-<div class="product-index-grid pt4">
-  <% @products.each do |product| %>
-
-    <div class="product border-light">
-      <div class="product-thumb">
-      <%= link_to image_tag(product.image_url(:thumb)), product %>
-      <% if product.condition? %>
-        <div class="condition">
-          <span class="tag is-dark"><%= product.condition %></span>
+<div class="container">
+  <div class="product-index-grid pt-6">
+    <% @products.each do |product| %>
+      <div class="product-card">
+        <div class="product-thumb">
+          <%= link_to product do %>
+            <%= image_tag(product.image_url(:thumb), class: "product-image") %>
+          <% end %>
+          <% if product.condition? %>
+            <div class="condition-badge">
+              <span class="tag is-info is-light"><%= product.condition %></span>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+
+        <div class="product-content">
+          <h3 class="product-title"><%= link_to product.title, product %></h3>
+          <p class="seller-info">Sold by: <%=  %></p>
+          <p class="product-price"><%= number_to_currency(product.price) %></p>
+
+          <div class="product-actions">
+            <%= link_to edit_product_path(product), class: "button is-small is-outlined is-primary" do %>
+              <span class="icon"><i class="fas fa-edit"></i></span>
+              <span>Edit</span>
+            <% end %>
+            <%= link_to product, 
+                data: { confirm: "Are you sure?" }, 
+                method: :delete, 
+                class: "button is-small is-outlined is-danger" do %>
+              <span class="icon"><i class="fas fa-trash"></i></span>
+              <span>Delete</span>
+            <% end %>
+          </div>
+        </div>
       </div>
-
-
-    <div class="pa3">
-
-      <h3 class="fw7 f4 title"><%= link_to product.title, product %></h3>
-
-      <p class="has-text-gray fg pt1">Sold by: <%=  %></p>
-
-      <p class="f3 fw6 has-text-right pt2 price"><%= number_to_currency(product.price) %></p>
-
- <%# This is where you will have to add the code so that only the user will be able to edit or delete
- at the moment every one can do that, find a way to fix this %>
-      
-       <%= link_to 'Edit', edit_product_path(product), class: "button is-small" %>
-       <%= link_to 'Delete', product, data: { confirm: "Are you sure ?" }, :method => :delete, class: "button is-small" %>
-
-    </div>
+    <% end %>
   </div>
-  <% end %>
 </div>

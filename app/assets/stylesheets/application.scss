@@ -19,6 +19,7 @@ $link-hover: #222;
 
 @import "bulma";
 @import "functions";
+@import "products";
 
 
 .notification {
@@ -67,5 +68,60 @@ $link-hover: #222;
       bottom: 10px;
       right: 9px;
     }
+  }
+}
+
+.navbar {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.navbar-item .button {
+  margin-left: 0.5rem;
+}
+
+.navbar-dropdown {
+  border-top: none;
+  border-radius: 6px;
+  box-shadow: 0 8px 8px rgba(10,10,10,.1);
+}
+
+.navbar-item.has-dropdown:hover .navbar-link {
+  background-color: transparent;
+}
+
+.button.is-primary {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.toast-container {
+  position: fixed;
+  top: 22px;
+  right: 8px;
+  z-index: 1000;
+}
+
+.toast {
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 30px;
+  min-width: 250px;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.3s ease-in-out;
+
+  &.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  &.hide {
+    opacity: 0;
+    transform: translateX(20px);
   }
 }
