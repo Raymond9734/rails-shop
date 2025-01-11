@@ -1,105 +1,105 @@
-<div class="columns">
-  <div class="column is-8 is-centered">
-
-    <%= simple_form_for @product, html: { multipart: true } do |f| %>
+<div class="columns is-centered">
+  <div class="column is-8">
+    <%= simple_form_for @product, html: { multipart: true, class: "form-container" } do |f| %>
       <%= f.error_notification %>
 
-        <div class="columns">
-
-          <div class="field column is-9">
-            <div class="control">
-              <%= f.input :title , required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-            </div>
-          </div>
-
-          <div class="field column">
-            <div class="control">
-              <%= f.input :price, required: true, input_html: { class:"input", maxlength: 7  }, wrapper: false, label_html: { class:"label" } %>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="field">
+      <div class="columns">
+        <div class="field column is-9">
           <div class="control">
-            <%= f.input :model, required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
+            <%= f.input :title, required: true, input_html: { class: "input is-rounded" }, wrapper: false, label_html: { class: "label has-text-weight-semibold" } %>
           </div>
         </div>
 
-        <div class="field">
+        <div class="field column">
           <div class="control">
-            <%= f.input :description, required: true, input_html: { class:"textarea" }, wrapper: false, label_html: { class:"label" } %>
+            <%= f.input :price, required: true, input_html: { class: "input is-rounded", maxlength: 7 }, wrapper: false, label_html: { class: "label has-text-weight-semibold" } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <%= f.input :model, required: true, input_html: { class: "input is-rounded" }, wrapper: false, label_html: { class: "label has-text-weight-semibold" } %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <%= f.input :description, required: true, input_html: { class: "textarea is-rounded" }, wrapper: false, label_html: { class: "label has-text-weight-semibold" } %>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="field column is-4">
+          <div class="control">
+            <label class="label has-text-weight-semibold">Brand</label>
+            <div class="control has-icons-left">
+              <span class="select is-rounded">
+                <%= f.input_field :brand, collection: Product::BRAND, prompt: "Select brand" %>
+              </span>
+              <span class="icon is-small is-left">
+                <i class="fa fa-tag"></i>
+              </span>
+            </div>
           </div>
         </div>
 
-        <div class="columns">
-          <div class="field column is-4">
-            <div class="control">
-              <label class="label">Brand</label>
-              <div class="control has-icons-left">
-                <span class="select">
-                  <%= f.input_field :brand, collection: Product::BRAND, prompt: "Select brand" %>
-                </span>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-tag"></i>
-                </span>
-              </div>
-            </div>
-           </div>
-
-          <div class="field column is-4">
-            <div class="control">
-              <label class="label">Finish</label>
-              <div class="control has-icons-left">
-                <span class="select">
-                  <%= f.input_field :finish, collection: Product::FINISH, prompt: "Select finish" %>
-                </span>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-paint-brush"></i>
-                </span>
-              </div>
-            </div>
-           </div>
-
-          <div class="field column is-4">
-            <div class="control">
-              <label class="label">Condition</label>
-              <div class="control has-icons-left">
-                <span class="select">
-                  <%= f.input_field :condition, collection: Product::CONDITION, prompt: "Select condition" %>
-                </span>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-paint-brush"></i>
-                </span>
-              </div>
-            </div>
-           </div>
-         </div>
-
-        <div class="field">
+        <div class="field column is-4">
           <div class="control">
-            <label class="label">Add images</label>
-              <div class="file">
-              <label class="file-label">
-                <%= f.input :image, as: :file, input_html: { class:"file-input product-image" }, label: false, wrapper: false %>
-                  <span class="file-cta">
-                    <span class="file-icon"><i class="fa fa-upload"></i></span>
-                    <span class="file-label">Choose a file…</span>
-                  </span>
-              </label>
-              </div>
+            <label class="label has-text-weight-semibold">Finish</label>
+            <div class="control has-icons-left">
+              <span class="select is-rounded">
+                <%= f.input_field :finish, collection: Product::FINISH, prompt: "Select finish" %>
+              </span>
+              <span class="icon is-small is-left">
+                <i class="fa fa-paint-brush"></i>
+              </span>
             </div>
-          </div>
-          <output id="list"></output>
-        <hr />
-
-        <div class="field is-grouped">
-          <div class="control">
-            <%= f.button :submit, class: 'button is-warning' %>
-            <%= link_to 'Cancel', products_path, class:'button is-light' %>
           </div>
         </div>
 
-      <% end %>
+        <div class="field column is-4">
+          <div class="control">
+            <label class="label has-text-weight-semibold">Condition</label>
+            <div class="control has-icons-left">
+              <span class="select is-rounded">
+                <%= f.input_field :condition, collection: Product::CONDITION, prompt: "Select condition" %>
+              </span>
+              <span class="icon is-small is-left">
+                <i class="fa fa-paint-brush"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+      <div class="control">
+        <label class="label has-text-weight-semibold">Add images</label>
+        <div class="file-upload-box has-text-centered">
+          <div class="drag-drop-area" id="drag-drop-area">
+            <i class="fa fa-cloud-upload drag-drop-icon"></i>
+            <p class="drag-drop-text">Drag & drop your files here</p>
+            <p class="drag-drop-subtext">or click to upload</p>
+            <%= f.input :image, as: :file, input_html: { class: "file-input product-image", id: "file-input" }, label: false, wrapper: false %>
+            <span class="file-name" id="file-name">No file selected</span>
+            <div class="image-preview" id="image-preview">
+            <!-- Image preview will be inserted here -->
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+      <hr />
+
+      <div class="field is-grouped">
+        <div class="control">
+          <%= f.button :submit, class: 'button is-warning is-rounded' %>
+          <%= link_to 'Cancel', products_path, class: 'button is-light is-rounded' %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
