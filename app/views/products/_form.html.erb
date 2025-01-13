@@ -1,31 +1,43 @@
 <div class="columns is-centered">
   <div class="column is-8">
     <%= simple_form_for @product, html: { multipart: true, class: "form-container" } do |f| %>
-      <%= f.error_notification %>
+      <%= f.error_notification class: "notification is-danger" %>
 
       <div class="columns">
         <div class="field column is-9">
           <div class="control">
-            <%= f.input :title, required: true, input_html: { class: "input is-rounded" }, wrapper: false, label_html: { class: "label has-text-weight-semibold" } %>
+            <%= f.input :title, required: true, input_html: { class: "input is-rounded #{'is-danger' if f.object.errors[:title].any?}" }, wrapper: false, label_html: { class: "label has-text-weight-semibold" }, error: false %>
+            <% if f.object.errors[:title].any? %>
+              <p class="help is-danger"><%= f.object.errors[:title].join(', ') %></p>
+            <% end %>
           </div>
         </div>
 
         <div class="field column">
           <div class="control">
-            <%= f.input :price, required: true, input_html: { class: "input is-rounded", maxlength: 7 }, wrapper: false, label_html: { class: "label has-text-weight-semibold" } %>
+            <%= f.input :price, required: true, input_html: { class: "input is-rounded #{'is-danger' if f.object.errors[:price].any?}", maxlength: 7 }, wrapper: false, label_html: { class: "label has-text-weight-semibold" }, error: false %>
+            <% if f.object.errors[:price].any? %>
+              <p class="help is-danger"><%= f.object.errors[:price].join(', ') %></p>
+            <% end %>
           </div>
         </div>
       </div>
 
       <div class="field">
         <div class="control">
-          <%= f.input :model, required: true, input_html: { class: "input is-rounded" }, wrapper: false, label_html: { class: "label has-text-weight-semibold" } %>
+          <%= f.input :model, required: true, input_html: { class: "input is-rounded #{'is-danger' if f.object.errors[:model].any?}" }, wrapper: false, label_html: { class: "label has-text-weight-semibold" }, error: false %>
+          <% if f.object.errors[:model].any? %>
+            <p class="help is-danger"><%= f.object.errors[:model].join(', ') %></p>
+          <% end %>
         </div>
       </div>
 
       <div class="field">
         <div class="control">
-          <%= f.input :description, required: true, input_html: { class: "textarea is-rounded" }, wrapper: false, label_html: { class: "label has-text-weight-semibold" } %>
+          <%= f.input :description, required: true, input_html: { class: "textarea is-rounded #{'is-danger' if f.object.errors[:description].any?}" }, wrapper: false, label_html: { class: "label has-text-weight-semibold" }, error: false %>
+          <% if f.object.errors[:description].any? %>
+            <p class="help is-danger"><%= f.object.errors[:description].join(', ') %></p>
+          <% end %>
         </div>
       </div>
 
@@ -34,13 +46,16 @@
           <div class="control">
             <label class="label has-text-weight-semibold">Brand</label>
             <div class="control has-icons-left">
-              <span class="select is-rounded">
+              <span class="select is-rounded <%= 'is-danger' if f.object.errors[:brand].any? %>">
                 <%= f.input_field :brand, collection: Product::BRAND, prompt: "Select brand" %>
               </span>
               <span class="icon is-small is-left">
                 <i class="fa fa-tag"></i>
               </span>
             </div>
+            <% if f.object.errors[:brand].any? %>
+              <p class="help is-danger"><%= f.object.errors[:brand].join(', ') %></p>
+            <% end %>
           </div>
         </div>
 
@@ -48,13 +63,16 @@
           <div class="control">
             <label class="label has-text-weight-semibold">Finish</label>
             <div class="control has-icons-left">
-              <span class="select is-rounded">
+              <span class="select is-rounded <%= 'is-danger' if f.object.errors[:finish].any? %>">
                 <%= f.input_field :finish, collection: Product::FINISH, prompt: "Select finish" %>
               </span>
               <span class="icon is-small is-left">
                 <i class="fa fa-paint-brush"></i>
               </span>
             </div>
+            <% if f.object.errors[:finish].any? %>
+              <p class="help is-danger"><%= f.object.errors[:finish].join(', ') %></p>
+            <% end %>
           </div>
         </div>
 
@@ -62,17 +80,37 @@
           <div class="control">
             <label class="label has-text-weight-semibold">Condition</label>
             <div class="control has-icons-left">
-              <span class="select is-rounded">
+              <span class="select is-rounded <%= 'is-danger' if f.object.errors[:condition].any? %>">
                 <%= f.input_field :condition, collection: Product::CONDITION, prompt: "Select condition" %>
               </span>
               <span class="icon is-small is-left">
                 <i class="fa fa-paint-brush"></i>
               </span>
             </div>
+            <% if f.object.errors[:condition].any? %>
+              <p class="help is-danger"><%= f.object.errors[:condition].join(', ') %></p>
+            <% end %>
           </div>
         </div>
       </div>
 
+      <div class="field">
+        <div class="control">
+          <label class="label has-text-weight-semibold">Category</label>
+          <div class="control has-icons-left">
+            <span class="select is-rounded <%= 'is-danger' if f.object.errors[:category].any? %>">
+              <%= f.input_field :category, collection: Product::CATEGORIES, prompt: "Select category" %>
+            </span>
+            <span class="icon is-small is-left">
+              <i class="fa fa-list"></i>
+            </span>
+          </div>
+          <% if f.object.errors[:category].any? %>
+            <p class="help is-danger"><%= f.object.errors[:category].join(', ') %></p>
+          <% end %>
+        </div>
+      </div>
+      
       <div class="field">
       <div class="control">
         <label class="label has-text-weight-semibold">Add images</label>
@@ -81,12 +119,15 @@
             <i class="fa fa-cloud-upload drag-drop-icon"></i>
             <p class="drag-drop-text">Drag & drop your files here</p>
             <p class="drag-drop-subtext">or click to upload</p>
-            <%= f.input :image, as: :file, input_html: { class: "file-input product-image", id: "file-input" }, label: false, wrapper: false %>
+            <%= f.input :image, as: :file, input_html: { class: "file-input product-image #{'is-danger' if f.object.errors[:image].any?}", id: "file-input" }, label: false, wrapper: false, error: false %>
             <span class="file-name" id="file-name">No file selected</span>
             <div class="image-preview" id="image-preview">
             <!-- Image preview will be inserted here -->
           </div>
           </div>
+          <% if f.object.errors[:image].any? %>
+            <p class="help is-danger"><%= f.object.errors[:image].join(', ') %></p>
+          <% end %>
         </div>
       </div>
     </div>
