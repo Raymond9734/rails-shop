@@ -15,6 +15,10 @@
         <% if @product.condition? %>
         <li class="inline-block pr3"><%= @product.condition %></li>
         <% end %>
+
+        <% if @product.category? %>
+        <li class="inline-block pr3">Category: <%= @product.category %></li>
+        <% end %>
       </ul>
 
       <div class="feature-image">
@@ -55,6 +59,13 @@
           <td class="has-text-weight-bold">Model:</td>
           <td><%= @product.model %></td>
         </tr>
+
+        <% if @product.category %>
+          <tr>
+            <td class="has-text-weight-bold">Category:</td>
+            <td><%= @product.category %></td>
+          </tr>
+        <% end %>
       </table>
     </div>
     </div>
