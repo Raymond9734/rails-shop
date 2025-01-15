@@ -1,0 +1,37 @@
+// Place all the styles related to the Carts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.container {
+  margin-top: 8rem;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.box .table {
+  margin-top: 1.5rem;
+}
+
+.quantity-control {
+  min-width: 120px;
+}
+
+.cart-actions {
+  margin-top: 2rem;
+  
+  .button {
+    margin: 0 0.5rem;
+    
+    &.is-light {
+      transition: background-color 0.3s ease;
+      
+      &:hover {
+        background-color: #f5f5f5;
+        border-color: #f14668;
+        color: #363636;
+      }
+    }
+  }
+}
