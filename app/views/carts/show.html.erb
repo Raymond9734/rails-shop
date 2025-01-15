@@ -1,0 +1,101 @@
+<div class="container cart-container">
+  <div class="columns is-centered">
+    <div class="column is-14">
+      <div class="box">
+        <h1 class="title is-3">Your Cart</h1>
+        
+        <% if @cart.line_items.any? %>
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product Details</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @cart.line_items.each do |line_item| %>
+                <tr>
+                  <td>
+                    <%= image_tag line_item.product.image_url(:thumb), class: "image is-64x64" if line_item.product.image? %>
+                  </td>
+                  <td>
+                    <p class="has-text-weight-medium"><%= line_item.product.title %></p>
+                    <p class="has-text-grey is-size-7">Sold by <%= line_item.product.user.name %></p>
+                  </td>
+                  <td>
+                    <div class="field has-addons quantity-control">
+                      <%= button_to line_item_path(line_item), 
+                          method: :patch,
+                          params: { line_item: { quantity: line_item.quantity - 1 } },
+                          class: "button is-small",
+                          form_class: "is-inline",
+                          disabled: line_item.quantity <= 1 do %>
+                        <span class="icon is-small">
+                          <i class="fas fa-minus"></i>
+                        </span>
+                      <% end %>
+                      
+                      <span class="button is-static is-small">
+                        <%= line_item.quantity %>
+                      </span>
+                      
+                      <%= button_to line_item_path(line_item),
+                          method: :patch,
+                          params: { line_item: { quantity: line_item.quantity + 1 } },
+                          class: "button is-small",
+                          form_class: "is-inline" do %>
+                        <span class="icon is-small">
+                          <i class="fas fa-plus"></i>
+                        </span>
+                      <% end %>
+                    </div>
+                  </td>
+                  <td><%= number_to_currency(line_item.product.price) %></td>
+                  <td><%= number_to_currency(line_item.total_price) %></td>
+                  <td>
+                    <%= link_to line_item_path(line_item), 
+                        method: :delete, 
+                        class: "button is-small is-danger is-outlined",
+                        data: { confirm: "Are you sure?" } do %>
+                      <span class="icon">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="has-text-right has-text-weight-bold">Total:</td>
+                <td class="has-text-weight-bold"><%= number_to_currency(@cart.total_price) %></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <div class="cart-actions is-flex is-justify-content-space-between">
+            <%= link_to 'Continue Shopping', root_path, class: 'button is-light' %>
+            <%= button_to 'Empty Cart', 
+                cart_path(@cart), 
+                method: :delete,
+                class: 'button is-danger is-outlined',
+                data: { 
+                  turbo_confirm: 'Are you sure you want to empty your cart?',
+                  disable_with: 'Emptying...'
+                } %>
+          </div>
+        <% else %>
+          <div class="has-text-centered py-6">
+            <p class="is-size-4 mb-4">Your cart is empty</p>
+            <%= link_to 'Start Shopping', root_path, class: 'button is-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div> 
