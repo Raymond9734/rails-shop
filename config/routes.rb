@@ -4,5 +4,7 @@ Rails.application.routes.draw do
     registrations: 'registrations'
   }
   root 'products#index'
+  resources :carts
+  resources :line_items
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -29,21 +29,46 @@
         </div>
 
         <div class="product-content">
-          <h3 class="product-title"><%= link_to product.title, product %></h3>
-          <p class="seller-info">Sold by: <%=  %></p>
-          <p class="product-price"><%= number_to_currency(product.price) %></p>
-
-          <div class="product-actions">
-            <%= link_to edit_product_path(product), class: "button is-small is-outlined is-primary" do %>
-              <span class="icon"><i class="fas fa-edit"></i></span>
-              <span>Edit</span>
+          <div class="product-header">
+            <h3 class="product-title"><%= link_to product.title, product %></h3>
+            <% if current_user && current_user.id == product.user_id %>
+              <div class="dropdown is-right is-hoverable">
+                <div class="dropdown-trigger">
+                  <button class="button is-ghost" aria-haspopup="true" aria-controls="product-menu">
+                    <span class="icon">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="product-menu" role="menu">
+                  <div class="dropdown-content">
+                    <%= link_to edit_product_path(product), class: "dropdown-item" do %>
+                      <span class="icon"><i class="fas fa-edit"></i></span>
+                      <span>Edit</span>
+                    <% end %>
+                    <%= link_to product, 
+                        data: { confirm: "Are you sure?" }, 
+                        method: :delete, 
+                        class: "dropdown-item has-text-danger" do %>
+                      <span class="icon"><i class="fas fa-trash"></i></span>
+                      <span>Delete</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             <% end %>
-            <%= link_to product, 
-                data: { confirm: "Are you sure?" }, 
-                method: :delete, 
-                class: "button is-small is-outlined is-danger" do %>
-              <span class="icon"><i class="fas fa-trash"></i></span>
-              <span>Delete</span>
+          </div>
+          <p class="seller-info">Sold by: <%= product.user.name %></p>
+          <p class="product-price"><%= number_to_currency(product.price) %></p>
+          <div class="product-actions mt-4">
+            <% if current_user && current_user.id != product.user_id %>
+              <%= button_to line_items_path(product_id: product), 
+                  class: "button is-primary is-fullwidth is-small" do %>
+                <span class="icon">
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+                <span>Add to Cart</span>
+              <% end %>
             <% end %>
           </div>
         </div>

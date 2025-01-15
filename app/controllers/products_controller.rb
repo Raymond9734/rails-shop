@@ -67,6 +67,17 @@ end
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:brand, :model, :description, :condition, :finish, :title, :price, :image, :category)
+      params.require(:product).permit(
+        :brand, 
+        :model, 
+        :description, 
+        :condition, 
+        :finish, 
+        :title, 
+        :price, 
+        :image, 
+        :category,
+        :remove_image
+      )
     end
 end

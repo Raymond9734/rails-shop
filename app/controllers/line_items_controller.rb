@@ -1,0 +1,47 @@
+class LineItemsController < ApplicationController
+  include CurrentCart
+  before_action :set_cart, only: [:create]
+  before_action :set_line_item, only: [:update, :destroy]
+
+  def create
+    product = Product.find(params[:product_id])
+    @line_item = @cart.add_product(product)
+
+    respond_to do |format|
+      if @line_item.save
+        format.html { redirect_back(fallback_location: root_path, notice: 'Item added to cart.') }
+        format.json { render :show, status: :created, location: @line_item }
+      else
+        format.html { redirect_back(fallback_location: root_path, alert: 'Unable to add item to cart.') }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    if @line_item.update(line_item_params)
+      redirect_to cart_path(@line_item.cart), notice: 'Quantity updated successfully'
+    else
+      redirect_to cart_path(@line_item.cart), alert: 'Error updating quantity'
+    end
+  end
+
+  def destroy
+    @cart = @line_item.cart
+    @line_item.destroy
+    respond_to do |format|
+      format.html { redirect_to cart_path(@cart), notice: 'Item removed from cart.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def set_line_item
+    @line_item = LineItem.find(params[:id])
+  end
+
+  def line_item_params
+    params.require(:line_item).permit(:quantity)
+  end
+end 

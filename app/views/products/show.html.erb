@@ -73,6 +73,16 @@
       <div class="bg-white pa4 border-radius-3">
         <h4 class="title is-5 has-text-centered"><%= number_to_currency(@product.price) %></h4>
         <p class="has-text-centered mb4">Sold by <%= @product.user.name %></p>
+        
+        <% if current_user && current_user.id != @product.user_id %>
+          <%= button_to line_items_path(product_id: @product), 
+              class: "button is-primary is-fullwidth add-to-cart" do %>
+            <span class="icon">
+              <i class="fas fa-shopping-cart"></i>
+            </span>
+            <span>Add to Cart</span>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
