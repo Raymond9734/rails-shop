@@ -5,19 +5,19 @@
     <div class="column is-8">
       <h1 class="title is-2"><%= @product.title %></h1>
 
-      <ul class="pv1">
+      <ul class="product-meta">
         <% if @product.brand? %>
-        <li class="inline-block pr3"><%= @product.brand %></li>
+        <li><%= @product.brand %></li>
         <% end %>
 
-        <li class="inline-block pr3"><%= @product.model %></li>
+        <li><%= @product.model %></li>
 
         <% if @product.condition? %>
-        <li class="inline-block pr3"><%= @product.condition %></li>
+        <li><%= @product.condition %></li>
         <% end %>
 
         <% if @product.category? %>
-        <li class="inline-block pr3">Category: <%= @product.category %></li>
+        <li><%= @product.category %></li>
         <% end %>
       </ul>
 
@@ -70,17 +70,31 @@
     </div>
     </div>
     <div class="column is-3 is-offset-1">
-      <div class="bg-white pa4 border-radius-3">
-        <h4 class="title is-5 has-text-centered"><%= number_to_currency(@product.price) %></h4>
-        <p class="has-text-centered mb4">Sold by <%= @product.user.name %></p>
+      <div class="price-card">
+        <div class="price-tag">
+          <h4 class="title is-4 has-text-centered mb-2"><%= number_to_currency(@product.price) %></h4>
+          <p class="seller-info">Sold by <%= @product.user.name %></p>
+        </div>
         
         <% if current_user && current_user.id != @product.user_id %>
           <%= button_to line_items_path(product_id: @product), 
-              class: "button is-primary is-fullwidth add-to-cart" do %>
+              class: "button is-primary is-fullwidth add-to-cart mb-3" do %>
             <span class="icon">
               <i class="fas fa-shopping-cart"></i>
             </span>
             <span>Add to Cart</span>
+          <% end %>
+
+          <%= link_to mpesa_checkout_path, 
+              class: "button is-info is-fullwidth checkout-button",
+              data: { 
+                turbo: false,
+                method: :get
+              } do %>
+            <span class="icon">
+              <i class="fas fa-credit-card"></i>
+            </span>
+            <span>Buy Now with M-Pesa</span>
           <% end %>
         <% end %>
       </div>

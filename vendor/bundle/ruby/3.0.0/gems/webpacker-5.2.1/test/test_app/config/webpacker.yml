@@ -53,6 +53,9 @@ default: &default
 development:
   <<: *default
   compile: true
+  compile_on_demand: true
+  public_output_path: packs
+  cache_manifest: false
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:

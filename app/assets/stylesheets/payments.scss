@@ -1,0 +1,122 @@
+.payment-section {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-top: 3rem;
+}
+
+.payment-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+
+  .payment-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+
+    .title {
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #6c757d;
+    }
+  }
+
+  .order-summary {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+
+    .title.is-5 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+
+    .summary-details {
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        
+        &.total {
+          border-top: 1px solid #dee2e6;
+          margin-top: 0.5rem;
+          padding-top: 1rem;
+          font-weight: 600;
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+
+  .mpesa-form {
+    .field {
+      margin-bottom: 1.5rem;
+    }
+
+    .label {
+      color: #2c3e50;
+      font-weight: 600;
+    }
+
+    .input {
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 2px solid #e9ecef;
+      transition: all 0.3s ease;
+
+      &:focus {
+        border-color: #00d1b2;
+        box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
+      }
+    }
+
+    .help {
+      color: #6c757d;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .payment-actions {
+    margin-top: 2rem;
+
+    .pay-button {
+      background: linear-gradient(135deg, #00d1b2, #00b89c);
+      border: none;
+      padding: 1.25rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 209, 178, 0.2);
+      }
+    }
+  }
+
+  .payment-info {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #6c757d;
+      font-size: 0.9rem;
+
+      .icon {
+        font-size: 1.2rem;
+      }
+    }
+  }
+} 

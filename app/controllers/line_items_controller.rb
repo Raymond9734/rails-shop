@@ -1,36 +1,46 @@
 class LineItemsController < ApplicationController
-  include CurrentCart
-  before_action :set_cart, only: [:create]
-  before_action :set_line_item, only: [:update, :destroy]
+  before_action :set_line_item, only: [:show, :update, :destroy]
+
+  def show
+    respond_to do |format|
+      format.html { redirect_to cart_path(@line_item.cart) }
+      format.json { render json: @line_item }
+    end
+  end
 
   def create
     product = Product.find(params[:product_id])
-    @line_item = @cart.add_product(product)
+    @line_item = current_cart.add_product(product)
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_back(fallback_location: root_path, notice: 'Item added to cart.') }
+        format.html { redirect_to cart_path(current_cart), notice: 'Item added to cart.' }
         format.json { render :show, status: :created, location: @line_item }
       else
-        format.html { redirect_back(fallback_location: root_path, alert: 'Unable to add item to cart.') }
+        format.html { redirect_back(fallback_location: root_path, alert: 'Could not add item to cart.') }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def update
-    if @line_item.update(line_item_params)
-      redirect_to cart_path(@line_item.cart), notice: 'Quantity updated successfully'
-    else
-      redirect_to cart_path(@line_item.cart), alert: 'Error updating quantity'
+    respond_to do |format|
+      if @line_item.update(line_item_params)
+        format.html { redirect_to cart_path(@line_item.cart), notice: 'Quantity updated.' }
+        format.json { render :show, status: :ok, location: @line_item }
+      else
+        format.html { redirect_to cart_path(@line_item.cart), alert: 'Could not update quantity.' }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
-    @cart = @line_item.cart
+    cart = @line_item.cart
     @line_item.destroy
+    
     respond_to do |format|
-      format.html { redirect_to cart_path(@cart), notice: 'Item removed from cart.' }
+      format.html { redirect_to cart_path(cart), notice: 'Item removed from cart.' }
       format.json { head :no_content }
     end
   end
@@ -43,5 +53,13 @@ class LineItemsController < ApplicationController
 
   def line_item_params
     params.require(:line_item).permit(:quantity)
+  end
+
+  def current_cart
+    Cart.find(session[:cart_id])
+  rescue ActiveRecord::RecordNotFound
+    cart = Cart.create(user: current_user)
+    session[:cart_id] = cart.id
+    cart
   end
 end 

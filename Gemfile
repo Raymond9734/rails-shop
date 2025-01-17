@@ -68,3 +68,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'file_validators'
+
+gem 'httparty'
+
+gem 'dotenv-rails', groups: [:development, :test]

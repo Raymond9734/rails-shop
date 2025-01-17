@@ -8,10 +8,18 @@ module CurrentCart
     private
   
     def set_cart
-      if current_user
-        @cart = Cart.find_or_create_by(user_id: current_user.id)
-      else
-        @cart = nil
+      if user_signed_in?
+        @cart = current_user.cart || current_user.create_cart
+        session[:cart_id] = @cart.id
+      elsif session[:cart_id]
+        @cart = Cart.find_by(id: session[:cart_id])
+        if @cart.nil?
+          @cart = Cart.create
+          session[:cart_id] = @cart.id
+        end
       end
+    rescue ActiveRecord::RecordNotFound
+      @cart = Cart.create
+      session[:cart_id] = @cart.id
     end
 end
