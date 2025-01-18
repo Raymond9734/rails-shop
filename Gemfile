@@ -72,3 +72,6 @@ gem 'file_validators'
 gem 'httparty'
 
 gem 'dotenv-rails', groups: [:development, :test]
+
+gem 'rack-cors'
+gem 'rest-client'
