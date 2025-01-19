@@ -13,25 +13,24 @@
             <div class="summary-details">
               <div class="summary-row">
                 <span>Subtotal</span>
-                <span><%= number_to_currency(@cart.total_price) %></span>
+                <span><%= number_to_currency(@amount || @cart.total_price) %></span>
               </div>
               <div class="summary-row total">
                 <span>Total Amount</span>
-                <span><%= number_to_currency(@cart.total_price) %></span>
+                <span><%= number_to_currency(@amount || @cart.total_price) %></span>
               </div>
             </div>
           </div>
 
-          <%= form_with(url: process_mpesa_payment_path, local: true, class: "payment-form") do |f| %>
+          <%= form_with(url: stkpush_path, local: false, class: "payment-form") do |f| %>
             <div class="field">
               <label class="label">Phone Number</label>
               <div class="control has-icons-left">
-                <%= f.telephone_field :phone_number,
+                <%= f.telephone_field :phoneNumber,
                     class: "input",
                     placeholder: "e.g., 0728457051",
                     pattern: "[0-9]{10}",
-                    required: true,
-                    value: "0728457051" %>
+                    required: true %>
                 <span class="icon is-small is-left">
                   <i class="fas fa-phone"></i>
                 </span>
@@ -40,6 +39,7 @@
             </div>
 
             <div class="field">
+              <%= f.hidden_field :amount, value: (@amount || @cart.total_price).to_i %>
               <%= f.submit "Pay with M-Pesa", 
                   class: "button is-primary is-fullwidth is-medium",
                   data: { 
@@ -66,4 +66,4 @@
       </div>
     </div>
   </div>
-</section> 
+</section>

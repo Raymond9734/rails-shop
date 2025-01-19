@@ -9,12 +9,12 @@ class Cart < ApplicationRecord
       if current_item
         current_item.increment(:quantity)
       else
-        current_item = line_items.build(product_id: product.id)
+        current_item = line_items.build(product_id: product.id, quantity: 1)
       end
       current_item
     end
 
     def total_price
-      line_items.sum { |item| item.total_price }
+      line_items.to_a.sum { |item| item.total_price || 0 }
     end
   end

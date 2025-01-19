@@ -85,7 +85,7 @@
             <span>Add to Cart</span>
           <% end %>
 
-          <%= link_to mpesa_checkout_path, 
+          <%= link_to mpesa_checkout_path(amount: @product.price), 
               class: "button is-info is-fullwidth checkout-button",
               data: { 
                 turbo: false,

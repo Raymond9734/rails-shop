@@ -9,6 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import './products';
 import './global';
+import './mpesa';
 
 
 Rails.start()
