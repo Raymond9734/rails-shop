@@ -47,6 +47,13 @@ default: &default
     - .jpeg
     - .jpg
 
+  # Add these lines to use Dart Sass
+  sass:
+    implementation: sass
+    sass_options:
+      sourceMap: true
+      sourceMapContents: true
+
 development:
   <<: *default
   compile: true
