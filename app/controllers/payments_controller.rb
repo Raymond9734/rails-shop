@@ -4,14 +4,18 @@ class PaymentsController < ApplicationController
   
   def mpesa_checkout
     Rails.logger.info "Entering mpesa_checkout action"
-    Rails.logger.info "Cart: #{@cart.inspect}"
     
-    if @cart.nil? || @cart.line_items.empty?
-      Rails.logger.info "Cart is empty or nil, redirecting to root"
-      redirect_to root_path, alert: "Your cart is empty"
-    else
-      Rails.logger.info "Rendering mpesa_checkout template"
+    if params[:amount]
+      # Direct product purchase
+      @amount = params[:amount]
       render template: 'payments/mpesa_checkout', layout: 'application'
+    elsif @cart && @cart.line_items.any?
+      # Cart checkout
+      Rails.logger.info "Cart: #{@cart.inspect}"
+      render template: 'payments/mpesa_checkout', layout: 'application'
+    else
+      Rails.logger.info "No amount or cart specified"
+      redirect_to root_path, alert: "Invalid checkout request"
     end
   rescue => e
     Rails.logger.error "Error in mpesa_checkout: #{e.message}"
