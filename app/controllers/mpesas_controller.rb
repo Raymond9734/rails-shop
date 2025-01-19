@@ -93,24 +93,48 @@ class MpesasController < ApplicationController
       Authorization: "Bearer #{get_access_token}"
     }
 
-    response = RestClient::Request.new({
-      method: :post,
-      url: url,
-      payload: payload,
-      headers: headers
-    }).execute do |response, request|
-      case response.code
-      when 500
-        [ :error, JSON.parse(response.to_str) ]
-      when 400
-        [ :error, JSON.parse(response.to_str) ]
-      when 200
-        [ :success, JSON.parse(response.to_str) ]
-      else
-        fail "Invalid response #{response.to_str} received."
+    begin
+      response = RestClient::Request.new({
+        method: :post,
+        url: url,
+        payload: payload,
+        headers: headers
+      }).execute do |response, request|
+        case response.code
+        when 500, 400
+          { status: :error, message: JSON.parse(response.to_str) }
+        when 200
+          { status: :success, message: "Please wait as your payment prompt is being processed" }
+        else
+          { status: :error, message: "An unexpected error occurred please try again later" }
+        end
       end
+
+      if response[:status] == :success
+        # Clear the cart if it exists
+        if session[:cart_id]
+          Cart.find_by(id: session[:cart_id])&.destroy
+          session[:cart_id] = nil
+        end
+        
+        render json: { 
+          status: :success, 
+          message: response[:message],
+          redirect_url: root_path 
+        }
+      else
+        render json: { 
+          status: :error, 
+          message: "Failed to initiate payment: #{response[:message]}"
+        }
+      end
+    rescue => e
+      Rails.logger.error "M-Pesa payment error: #{e.message}"
+      render json: { 
+        status: :error, 
+        message: "An error occurred while processing the payment"
+      }
     end
-    render json: response
   end
 
   
