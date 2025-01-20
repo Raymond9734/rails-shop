@@ -10,6 +10,7 @@ import "channels"
 import './products';
 import './global';
 import './mpesa';
+import './navbar';
 
 
 Rails.start()
