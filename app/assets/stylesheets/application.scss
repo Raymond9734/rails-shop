@@ -146,3 +146,99 @@ $link-hover: #222;
     border: 2px solid white;
   }
 }
+
+.navbar-burger {
+  background: none;
+  border: none;
+  height: 3.5rem;
+  position: relative;
+  width: 3.5rem;
+  margin-left: auto;
+  transition: background-color 0.2s ease-in-out;
+  
+  span {
+    background-color: currentColor;
+    display: block;
+    height: 2px;
+    left: 50%;
+    margin-left: -8px;
+    position: absolute;
+    transform-origin: center;
+    transition-duration: 200ms;
+    transition-property: background-color, opacity, transform;
+    transition-timing-function: ease-out;
+    width: 16px;
+    border-radius: 4px;
+    
+    &:nth-child(1) {
+      top: calc(50% - 7px);
+    }
+    
+    &:nth-child(2) {
+      top: 50%;
+    }
+    
+    &:nth-child(3) {
+      top: calc(50% + 7px);
+    }
+  }
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  &.is-active {
+    span {
+      &:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      
+      &:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      
+      &:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .navbar-menu {
+    background-color: white;
+    padding: 0;
+    box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    
+    &.is-active {
+      max-height: 100vh;
+      padding: 0.5rem 0;
+    }
+    
+    .navbar-item {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    
+    .buttons {
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      .button {
+        width: 100%;
+        justify-content: center;
+        margin: 0 !important;
+      }
+    }
+  }
+}
