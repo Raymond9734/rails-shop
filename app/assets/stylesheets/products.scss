@@ -105,61 +105,76 @@
 
   .price-card {
     background: white;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-    padding: 2rem;
-    transition: transform 0.3s ease;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    margin-top: 2rem;
+    position: sticky;
+    top: 2rem;
     
     &:hover {
       transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
 
     .price-tag {
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       padding-bottom: 1.5rem;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 2px solid #f0f0f0;
 
       .title.is-4 {
-        font-size: 2rem;
+        font-size: 2.5rem;
         color: #2c3e50;
         font-weight: 700;
+        letter-spacing: -0.5px;
       }
     }
 
     .seller-info {
       color: #6c757d;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       text-align: center;
+      margin-top: 0.5rem;
     }
 
     .button {
-      border-radius: 12px;
+      border-radius: 15px;
       padding: 1.25rem;
       font-weight: 600;
       transition: all 0.3s ease;
+      margin-bottom: 1rem;
+      border: none;
       
       &.is-primary {
         background: linear-gradient(135deg, #00d1b2, #00b89c);
+        box-shadow: 0 4px 15px rgba(0, 209, 178, 0.3);
         
         &:hover {
           background: linear-gradient(135deg, #00c4a7, #00a692);
           transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 209, 178, 0.2);
+          box-shadow: 0 6px 20px rgba(0, 209, 178, 0.4);
         }
       }
       
       &.is-info {
         background: linear-gradient(135deg, #3298dc, #2793da);
+        box-shadow: 0 4px 15px rgba(50, 152, 220, 0.3);
         
         &:hover {
           background: linear-gradient(135deg, #2793da, #2189cf);
           transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(50, 152, 220, 0.2);
+          box-shadow: 0 6px 20px rgba(50, 152, 220, 0.4);
         }
       }
 
       .icon {
-        margin-right: 0.5rem;
+        margin-right: 0.75rem;
+        font-size: 1.1rem;
+      }
+
+      span:not(.icon) {
+        font-size: 1rem;
       }
     }
   }
