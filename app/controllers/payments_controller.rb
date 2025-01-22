@@ -56,8 +56,9 @@ class PaymentsController < ApplicationController
         session[:checkout_request_id] = response.checkout_request_id
         redirect_to payment_status_path, notice: "Please complete the payment on your phone"
       else
+        Rails.logger.error "M-Pesa API Error: #{response.response_description}"
         redirect_to mpesa_checkout_path, 
-          alert: "Failed to initiate payment: #{response.response_description}"
+          alert: "Failed to initiate payment try again later"
       end
     rescue => e
       Rails.logger.error "M-Pesa payment error: #{e.message}"
