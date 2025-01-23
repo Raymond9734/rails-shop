@@ -1,5 +1,5 @@
 class LineItemsController < ApplicationController
-  before_action :set_line_item, only: [:show, :update, :destroy]
+  before_action :set_line_item, only: %i[show update destroy]
 
   def show
     respond_to do |format|
@@ -14,7 +14,7 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to cart_path(current_cart), notice: 'Item added to cart.' }
+        format.html { redirect_to cart_path(current_cart), notice: 'Added to your cart' }
         format.json { render :show, status: :created, location: @line_item }
       else
         format.html { redirect_back(fallback_location: root_path, alert: 'Could not add item to cart.') }
@@ -38,9 +38,9 @@ class LineItemsController < ApplicationController
   def destroy
     cart = @line_item.cart
     @line_item.destroy
-    
+
     respond_to do |format|
-      format.html { redirect_to cart_path(cart), notice: 'Item removed from cart.' }
+      format.html { redirect_to cart_path(cart), notice: 'Removed from your cart' }
       format.json { head :no_content }
     end
   end
@@ -62,4 +62,4 @@ class LineItemsController < ApplicationController
     session[:cart_id] = cart.id
     cart
   end
-end 
+end
