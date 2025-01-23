@@ -76,7 +76,7 @@
           <p class="seller-info">Sold by <%= @product.user.name %></p>
         </div>
         
-        <% if current_user && current_user.id != @product.user_id %>
+        <% if !current_user || (current_user && current_user.id != @product.user_id) %>
           <%= button_to line_items_path(product_id: @product), 
               class: "button is-primary is-fullwidth add-to-cart mb-3" do %>
             <span class="icon">
