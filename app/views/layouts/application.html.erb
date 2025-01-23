@@ -48,18 +48,7 @@
                 <span>Sell</span>
               <% end %>
 
-              <% if user_signed_in? && @cart %>
-                <%= link_to cart_path(@cart), class: "button is-light" do %>
-                  <span class="icon">
-                    <i class="fas fa-shopping-cart"></i>
-                  </span>
-                  <% if @cart.line_items.count > 0 %>
-                    <span class="cart-count">
-                      <%= @cart.line_items.sum(:quantity) %>
-                    </span>
-                  <% end %>
-                <% end %>
-              <% end %>
+             
 
               <div class="navbar-item has-dropdown is-hoverable">
                 <%= link_to edit_user_registration_path, class: "button is-light" do %>
@@ -94,6 +83,19 @@
               <span>Sign up</span>
             <% end %>
 
+            <% end %>
+
+            <% if @cart %>
+              <%= link_to cart_path(@cart), class: "button is-light" do %>
+                <span class="icon">
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+                <% if @cart.line_items.sum(:quantity) > 0 %>
+                  <span class="cart-count">
+                    <%= @cart.line_items.sum(:quantity) %>
+                  </span>
+                <% end %>
+              <% end %>
             <% end %>
 
             </div>
