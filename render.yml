@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: rails-shop
+    env: ruby
+    buildCommand: bundle install && yarn install && bundle exec rails assets:precompile
+    startCommand: bundle exec puma -C config/puma.rb
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: NODE_VERSION
+        value: 16.20.0
