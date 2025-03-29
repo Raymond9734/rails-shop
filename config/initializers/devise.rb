@@ -277,15 +277,10 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  config.warden do |manager|
-    manager.failure_app = Class.new(Devise::FailureApp) do
-      def respond
-        Rails.logger.debug "Authentication failed for: #{request.params[:user][:email]}" if request.params[:user]
-        Rails.logger.debug "Failure message: #{warden.message}"
-        super
-      end
-    end
-  end
+  # config.warden do |manager|
+  #   manager.intercept_401 = false
+  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
+  # end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
@@ -313,16 +308,4 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
-
-  # Add detailed authentication logging
-  Warden::Manager.after_authentication do |user, auth, opts|
-    Rails.logger.debug "Authentication successful for user: #{user.email}" if user
-  end
-  
-  Warden::Manager.before_failure do |env, opts|
-    request = ActionDispatch::Request.new(env)
-    Rails.logger.debug "Authentication failure for request to #{request.url}"
-    Rails.logger.debug "Params: #{request.params.inspect}"
-    Rails.logger.debug "Failure message: #{opts[:message]}" if opts[:message]
-  end
 end
