@@ -83,3 +83,6 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 gem 'rack-cors'
 gem 'rest-client'
+
+# Cloudinary for image storage
+gem 'cloudinary'
